@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import NameCard from "./components/name_card";
+import { Options } from "./components/options";
+import { NamesProvider, useNames } from "./context/names";
 
 function App() {
+  const {
+    AddToFavoriteNames,
+    deleteName,
+    getRandomName,
+    addMaybeName,
+    getMaybeNames,
+    getFavoriteNames,
+  } = useNames();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <NamesProvider>
+      <div className="App">
+        <header className="App-header">aaaaaaaaaa</header>
+        <NameCard name={getRandomName}></NameCard>
+        <Options></Options>
+      </div>
+    </NamesProvider>
   );
 }
 
