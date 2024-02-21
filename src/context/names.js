@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const allNames = [
   "Sophia",
@@ -63,12 +63,14 @@ export const NamesProvider = ({ children }) => {
 
   const AddToFavoriteNames = ({ name }) => {
     setFavoriteNames([...favoriteNames, name]);
-    console.log(availableNames);
     setAvailableNames(availableNames.filter((namex) => namex !== name));
   };
 
   const deleteName = ({ name }) => {
     setAvailableNames(availableNames.filter((namex) => namex !== name));
+    if (maybeNames.includes(name)) {
+      setMaybeNames(maybeNames.filter((namex) => namex !== name));
+    }
   };
 
   const getRandomName = () => {
@@ -76,7 +78,7 @@ export const NamesProvider = ({ children }) => {
   };
 
   const addMaybeName = ({ name }) => {
-    setMaybeNames(name);
+    setMaybeNames([...maybeNames, name]);
   };
 
   const getMaybeNames = () => maybeNames;
