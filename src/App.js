@@ -25,7 +25,7 @@ function AppContent() {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 90%;
   `;
 
   useEffect(() => {
@@ -37,17 +37,18 @@ function AppContent() {
   };
 
   const handleAddToFavorite = () => {
-    AddToFavoriteNames({ currentName });
+    console.log("app.js add to favorite" + currentName);
+    AddToFavoriteNames(currentName);
     handleGetRandomName();
   };
 
   const handleDeleteName = () => {
-    deleteName({ currentName });
+    deleteName(currentName);
     handleGetRandomName();
   };
 
   const handleAddMaybeName = () => {
-    addMaybeName({ currentName });
+    addMaybeName(currentName);
     handleGetRandomName();
   };
 

@@ -1,5 +1,9 @@
+import { faClose, faHeart, faWarning } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import styled from "styled-components";
+import { HeaderOptionButton } from "./header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { List } from "./options";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -18,16 +22,79 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 80%;
 `;
 
-const Modal = ({ isOpen, onClose, children }) => {
+const ModalList = styled.ul`
+  display: grid;
+  grid-template-columns: 50% 50%;
+  max-height: 70vh;
+  overflow: scroll;
+`;
+
+const ModalListElement = styled.li`
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  &::marker {
+    color: #50d8d7;
+  }
+`;
+
+const CloseButton = styled.button`
+  padding: 0.5rem 2rem;
+  background-color: rgb(80, 216, 215);
+  border: 0;
+  border-radius: 16px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    background-color: #44b2b1;
+  }
+`;
+
+const Modal = ({ isOpen, onClose, children, listElement, type }) => {
   if (!isOpen) return null;
 
   return (
     <ModalBackground>
       <ModalContent>
         {children}
-        <button onClick={onClose}>Close</button>
+        <ModalList>
+          {listElement.map((elem, index) => (
+            <ModalListElement key={index}>
+              <p>{elem}</p>
+
+              <List>
+                <HeaderOptionButton>
+                  <FontAwesomeIcon
+                    color="#50d8d7"
+                    icon={faClose}
+                  ></FontAwesomeIcon>
+                </HeaderOptionButton>
+                {type === "maybe" ? (
+                  <HeaderOptionButton>
+                    <FontAwesomeIcon
+                      color="#50d8d7"
+                      icon={faHeart}
+                    ></FontAwesomeIcon>
+                  </HeaderOptionButton>
+                ) : (
+                  <HeaderOptionButton>
+                    <FontAwesomeIcon
+                      color="#50d8d7"
+                      icon={faWarning}
+                    ></FontAwesomeIcon>
+                  </HeaderOptionButton>
+                )}
+              </List>
+            </ModalListElement>
+          ))}
+        </ModalList>
+        <CloseButton onClick={onClose}>Close</CloseButton>
       </ModalContent>
     </ModalBackground>
   );

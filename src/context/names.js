@@ -61,12 +61,16 @@ export const NamesProvider = ({ children }) => {
   const [availableNames, setAvailableNames] = useState(allNames);
   const [maybeNames, setMaybeNames] = useState([]);
 
-  const AddToFavoriteNames = ({ name }) => {
+  const AddToFavoriteNames = (name) => {
+    console.log("names.js name " + name);
+
     setFavoriteNames([...favoriteNames, name]);
     setAvailableNames(availableNames.filter((namex) => namex !== name));
+
+    console.log(favoriteNames);
   };
 
-  const deleteName = ({ name }) => {
+  const deleteName = (name) => {
     setAvailableNames(availableNames.filter((namex) => namex !== name));
     if (maybeNames.includes(name)) {
       setMaybeNames(maybeNames.filter((namex) => namex !== name));
@@ -77,11 +81,16 @@ export const NamesProvider = ({ children }) => {
     return availableNames[Math.floor(Math.random() * availableNames.length)];
   };
 
-  const addMaybeName = ({ name }) => {
+  const addMaybeName = (name) => {
     setMaybeNames([...maybeNames, name]);
+
+    console.log(maybeNames);
   };
 
-  const getMaybeNames = () => maybeNames;
+  const getMaybeNames = () => {
+    console.log("return maybe names " + maybeNames);
+    return maybeNames;
+  };
   const getFavoriteNames = () => favoriteNames;
 
   return (
