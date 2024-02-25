@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { HeaderOptionButton } from "./header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List } from "./options";
+import { useNames } from "../context/names";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -56,7 +57,17 @@ const CloseButton = styled.button`
   }
 `;
 
-const Modal = ({ isOpen, onClose, children, listElement, type }) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  listElement,
+  type,
+  onUpdate,
+  onManageDelete,
+  onManageFavorite,
+  onManageMaybe,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -69,21 +80,21 @@ const Modal = ({ isOpen, onClose, children, listElement, type }) => {
               <p>{elem}</p>
 
               <List>
-                <HeaderOptionButton>
+                <HeaderOptionButton onClick={() => onManageDelete(elem)}>
                   <FontAwesomeIcon
                     color="#50d8d7"
                     icon={faClose}
                   ></FontAwesomeIcon>
                 </HeaderOptionButton>
                 {type === "maybe" ? (
-                  <HeaderOptionButton>
+                  <HeaderOptionButton onClick={() => onManageFavorite(elem)}>
                     <FontAwesomeIcon
                       color="#50d8d7"
                       icon={faHeart}
                     ></FontAwesomeIcon>
                   </HeaderOptionButton>
                 ) : (
-                  <HeaderOptionButton>
+                  <HeaderOptionButton onClick={() => onManageMaybe(elem)}>
                     <FontAwesomeIcon
                       color="#50d8d7"
                       icon={faWarning}

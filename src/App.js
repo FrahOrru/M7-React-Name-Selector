@@ -16,6 +16,7 @@ function App() {
 
 function AppContent() {
   const [currentName, setCurrentName] = useState("");
+  const [exit, setExit] = useState(false);
 
   const { AddToFavoriteNames, deleteName, getRandomName, addMaybeName } =
     useNames();
