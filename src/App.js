@@ -5,7 +5,8 @@ import { Options } from "./components/options";
 import { NamesProvider, useNames } from "./context/names";
 import { useEffect, useState } from "react";
 import Header from "./components/header";
-
+import { CloseButton } from "./components/modal";
+import { Name } from "./components/name_card";
 function App() {
   return (
     <NamesProvider>
@@ -16,10 +17,14 @@ function App() {
 
 function AppContent() {
   const [currentName, setCurrentName] = useState("");
-  const [exit, setExit] = useState(false);
-
-  const { AddToFavoriteNames, deleteName, getRandomName, addMaybeName } =
-    useNames();
+  const [endOfTheNames, setEndOfTheNames] = useState(false);
+  const {
+    AddToFavoriteNames,
+    deleteName,
+    getRandomName,
+    addMaybeName,
+    restart,
+  } = useNames();
 
   const AppContainer = styled.div`
     display: flex;
@@ -34,11 +39,15 @@ function AppContent() {
   }, []);
 
   const handleGetRandomName = () => {
-    setCurrentName(getRandomName());
+    if (!getRandomName()) {
+      setCurrentName("");
+      setEndOfTheNames(true);
+    } else {
+      setCurrentName(getRandomName());
+    }
   };
 
   const handleAddToFavorite = () => {
-    console.log("app.js add to favorite" + currentName);
     AddToFavoriteNames(currentName);
     handleGetRandomName();
   };
@@ -53,16 +62,30 @@ function AppContent() {
     handleGetRandomName();
   };
 
+  const handleRestart = () => {
+    setEndOfTheNames(true);
+    restart();
+  };
+
   return (
     <div className="App">
       <Header></Header>
       <AppContainer>
-        <NameCard name={currentName}></NameCard>
-        <Options
-          addMaybeName={handleAddMaybeName}
-          AddToFavoriteNames={handleAddToFavorite}
-          deleteName={handleDeleteName}
-        ></Options>
+        {endOfTheNames ? (
+          <>
+            <Name>All names have been used!</Name>
+            <CloseButton onClick={handleRestart}>Restart</CloseButton>
+          </>
+        ) : (
+          <>
+            <NameCard name={currentName}></NameCard>
+            <Options
+              addMaybeName={handleAddMaybeName}
+              AddToFavoriteNames={handleAddToFavorite}
+              deleteName={handleDeleteName}
+            ></Options>
+          </>
+        )}
       </AppContainer>
     </div>
   );

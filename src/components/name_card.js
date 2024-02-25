@@ -11,10 +11,15 @@ const Card = styled.div`
   height: 50%;
 `;
 
+export const Name = styled.p`
+  font-size: 40px;
+  color: #50d8d7;
+  font-weight: bold;
+`;
 export default function NameCard({ name }) {
   return (
     <Card>
-      <p>{name}</p>
+      <Name>{name}</Name>
     </Card>
   );
 }

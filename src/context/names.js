@@ -78,11 +78,14 @@ export const NamesProvider = ({ children }) => {
     if (favoriteNames.includes(name)) {
       setFavoriteNames(favoriteNames.filter((namex) => namex !== name));
     }
-    console.log();
   };
 
   const getRandomName = () => {
-    return availableNames[Math.floor(Math.random() * availableNames.length)];
+    if (availableNames.length > 0) {
+      return availableNames[Math.floor(Math.random() * availableNames.length)];
+    } else {
+      return false;
+    }
   };
 
   const addMaybeName = (name) => {
@@ -92,14 +95,14 @@ export const NamesProvider = ({ children }) => {
     if (favoriteNames.includes(name)) {
       setFavoriteNames(favoriteNames.filter((namex) => namex !== name));
     }
-    console.log(maybeNames);
   };
 
   const getMaybeNames = () => {
-    console.log("return maybe names " + maybeNames);
     return maybeNames;
   };
   const getFavoriteNames = () => favoriteNames;
+
+  const restart = () => setAvailableNames(allNames);
 
   return (
     <NamesContext.Provider
@@ -110,6 +113,7 @@ export const NamesProvider = ({ children }) => {
         addMaybeName,
         getMaybeNames,
         getFavoriteNames,
+        restart,
       }}
     >
       {children}

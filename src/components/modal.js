@@ -44,7 +44,7 @@ const ModalListElement = styled.li`
   }
 `;
 
-const CloseButton = styled.button`
+export const CloseButton = styled.button`
   padding: 0.5rem 2rem;
   background-color: rgb(80, 216, 215);
   border: 0;
