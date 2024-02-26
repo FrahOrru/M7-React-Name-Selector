@@ -102,7 +102,11 @@ export const NamesProvider = ({ children }) => {
   };
   const getFavoriteNames = () => favoriteNames;
 
-  const restart = () => setAvailableNames(allNames);
+  const restart = () => {
+    setAvailableNames(allNames);
+    setFavoriteNames([]);
+    setMaybeNames([]);
+  };
 
   return (
     <NamesContext.Provider

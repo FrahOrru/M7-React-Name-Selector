@@ -15,6 +15,7 @@ export const Name = styled.p`
   font-size: 40px;
   color: #50d8d7;
   font-weight: bold;
+  text-align: center;
 `;
 export default function NameCard({ name }) {
   return (
