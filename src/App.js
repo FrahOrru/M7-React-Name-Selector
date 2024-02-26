@@ -130,6 +130,7 @@ function AppContent() {
   const handleRestart = () => {
     setEndOfTheNames(false);
     restart();
+    handleGetRandomName();
   };
 
   const EndGameName = styled(Name)`
